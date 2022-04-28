@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String input = binding.input.getText().toString();
-                if (input != "") { //TODO always be posting
+                if (!input.equals("")) {
                     model.sendMessage(input);
                 } else {
                     model.generateOutput();
@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 model.clearChat();
             }
         });
+
+        model.generateOutput();
     }
 
     private void setOutputText(String output) {
