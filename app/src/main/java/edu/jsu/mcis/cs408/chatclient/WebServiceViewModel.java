@@ -24,6 +24,7 @@ public class WebServiceViewModel extends ViewModel {
     private static final String TAG = "WebServiceDemoViewModel";
 
     private static final String CLIENT_URL = "http://ec2-3-143-211-101.us-east-2.compute.amazonaws.com/CS408_SimpleChat/Chat";
+    private static final String USERNAME = "Star lord";
     private final ExecutorService requestThreadExecutor;
     private final Runnable httpGetRequestThread, httpPostRequestThread, httpDeleteRequestThread;
     private Future<?> pending;
@@ -139,6 +140,7 @@ public class WebServiceViewModel extends ViewModel {
                 if (method.equals("POST")) {
                     JSONObject outputJSON = new JSONObject();
                     outputJSON.put("message", message);
+                    outputJSON.put("name", USERNAME);
 
                     conn.setDoOutput(true);
                     OutputStream out = conn.getOutputStream();
@@ -154,7 +156,7 @@ public class WebServiceViewModel extends ViewModel {
 
                 int code = conn.getResponseCode();
 
-                if (code == HTTP_OK || code == HTTP_CREATED) {  //TODO do I need a third case for delete?
+                if (code == HTTP_OK || code == HTTP_CREATED) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
                     do {
